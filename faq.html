@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ & Support | FoodNow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { brand: '#F97316', dark: '#0F172A', card: '#1E293B' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { transition: background-color 0.3s, color 0.3s; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        /* Smooth accordion animation */
+        .faq-answer { transition: all 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        .faq-item.active .faq-answer { max-height: 500px; opacity: 1; margin-top: 1rem; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark:bg-dark dark:text-gray-100 overflow-x-hidden">
+
+    <!-- FLOATING NAVBAR DESIGN -->
+    <nav class="fixed top-4 left-0 right-0 z-50 mx-auto w-[95%] max-w-[1200px]">
+        <div class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg shadow-xl border border-gray-200 dark:border-gray-800 rounded-full px-6 py-3 flex items-center justify-between transition-colors">
+            
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2 text-2xl font-black tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity">
+                <i class="fas fa-fire text-brand"></i>FoodNow
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-6 text-sm font-bold uppercase tracking-wide">
+                <div class="relative group py-2">
+                    <span class="cursor-pointer hover:text-brand transition flex items-center gap-1.5">Home <i class="fas fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180"></i></span>
+                    <div class="absolute left-0 top-full pt-2 w-48 opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transform -translate-y-2 group-hover:translate-y-0 transition-all duration-200 ease-out delay-150 group-hover:delay-0 z-50">
+                        <div class="bg-white dark:bg-card border border-gray-200 dark:border-gray-700 shadow-xl rounded-xl overflow-hidden flex flex-col">
+                            <a href="index.html" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Home Page 1</a>
+                            <a href="home-2.html" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="hover:text-brand transition">About</a>
+                <a href="services.html" class="hover:text-brand transition">Services</a>
+                <a href="pricing.html" class="hover:text-brand transition">Pricing</a>
+                <a href="blog.html" class="hover:text-brand transition">Blog</a>
+                <!-- ACTIVE STATE: FAQ -->
+                <a href="faq.html" class="text-brand transition">FAQ</a>
+                <a href="contact.html" class="hover:text-brand transition">Contact</a>
+                <div class="relative group py-2">
+                    <span class="cursor-pointer hover:text-brand transition flex items-center gap-1.5">Dashboard <i class="fas fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180"></i></span>
+                    <div class="absolute right-0 top-full pt-2 w-48 opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transform -translate-y-2 group-hover:translate-y-0 transition-all duration-200 ease-out delay-150 group-hover:delay-0 z-50">
+                        <div class="bg-white dark:bg-card border border-gray-200 dark:border-gray-700 shadow-xl rounded-xl overflow-hidden flex flex-col">
+                            <a href="user.html" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition">User Dashboard</a>
+                            <a href="admin.html" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Admin Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toggles & Mobile Menu Button -->
+            <div class="flex items-center gap-3">
+                <a href="login.html" class="hidden sm:block bg-brand hover:bg-orange-600 text-white px-5 py-2 rounded-full text-xs font-bold uppercase shadow hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">Login</a>
+                <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-sm hover:text-brand hover:scale-110 transition-all duration-200">
+                    <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+                <button onclick="toggleRTL()" id="rtl-btn" class="w-10 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-[10px] font-black uppercase hover:text-brand hover:scale-110 transition-all duration-200">LTR</button>
+                <button onclick="toggleMenu()" class="lg:hidden w-8 h-8 flex items-center justify-center text-xl hover:text-brand transition-transform active:scale-95"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE HAMBURGER MENU -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/80 z-[60] backdrop-blur-sm hidden flex justify-end transition-opacity">
+        <div class="w-[300px] h-full bg-white dark:bg-card flex flex-col shadow-2xl overflow-y-auto">
+            <div class="p-6 flex justify-between items-center border-b dark:border-gray-700">
+                <span class="text-xl font-black"><i class="fas fa-fire text-brand mr-2"></i>FoodNow</span>
+                <button onclick="toggleMenu()" class="text-2xl hover:text-brand transition-transform hover:rotate-90"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex flex-col p-6 gap-4 font-bold uppercase text-sm">
+                <a href="index.html" class="hover:text-brand transition">Home Page 1</a>
+                <a href="home-2.html" class="hover:text-brand transition">Home Page 2</a>
+                <a href="about.html" class="hover:text-brand transition">About</a>
+                <a href="services.html" class="hover:text-brand transition">Services</a>
+                <a href="pricing.html" class="hover:text-brand transition">Pricing</a>
+                <a href="blog.html" class="hover:text-brand transition">Blog</a>
+                <!-- ACTIVE STATE: FAQ -->
+                <a href="faq.html" class="text-brand flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-brand"></div> FAQ</a>
+                <a href="contact.html" class="hover:text-brand transition">Contact</a>
+                <hr class="border-gray-200 dark:border-gray-700 my-2">
+                <a href="user.html" class="text-gray-500 hover:text-brand transition">User Dashboard</a>
+                <a href="admin.html" class="text-gray-500 hover:text-brand transition">Admin Dashboard</a>
+                <a href="login.html" class="bg-brand hover:bg-orange-600 text-white text-center py-3 rounded-xl mt-4 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ HERO BANNER (FIXED TO FULL VIEWPORT) -->
+    <section class="relative w-full h-[100dvh] flex items-center justify-center text-center overflow-hidden">
+        <img src="https://images.pexels.com/photos/4253133/pexels-photo-4253133.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80" alt="Kitchen Prep" class="absolute inset-0 w-full h-full object-cover z-0">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-dark z-10"></div>
+        
+        <div class="relative z-20 px-6 max-w-4xl mx-auto flex flex-col items-center pt-20">
+            <span class="px-5 py-1.5 rounded-full bg-brand/20 border border-brand/50 text-orange-400 font-bold uppercase tracking-[0.2em] text-xs mb-6 backdrop-blur-sm shadow-lg">
+                Knowledge Base
+            </span>
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
+                How Can We <br><span class="text-brand">Help You?</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl font-medium leading-relaxed">
+                Everything you need to know about booking classes, what to wear, dietary restrictions, and our studio policies.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <a href="#faq-section" class="bg-brand hover:bg-orange-500 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg shadow-brand/40">
+                    Read the FAQs
+                </a>
+            </div>
+            <!-- Bouncing Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT: FAQ SECTIONS -->
+    <main class="w-full bg-gray-50 dark:bg-dark relative z-20">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: INTERACTIVE FAQ ACCORDION -->
+        <!-- ========================================== -->
+        <section id="faq-section" class="py-24 max-w-[1000px] mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <span class="text-brand font-bold uppercase tracking-widest text-sm mb-2 block">Common Questions</span>
+                <h2 class="text-4xl font-black text-gray-900 dark:text-white">General Information</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow" onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-black text-lg text-gray-900 dark:text-white">Do I need any prior cooking experience?</h4>
+                        <i class="fas fa-chevron-down faq-icon text-gray-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700">
+                        <p class="pt-4">Not at all! We offer classes designed for all skill levels. Our "Beginner Basics" series is perfect for those who have never held a chef's knife, while our "Masterclass" series is tailored for experienced home cooks looking to elevate their techniques.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow" onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-black text-lg text-gray-900 dark:text-white">What should I wear to a class?</h4>
+                        <i class="fas fa-chevron-down faq-icon text-gray-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700">
+                        <p class="pt-4">For safety reasons, we strictly require closed-toe shoes with non-slip soles. We recommend wearing comfortable clothing that you don't mind getting a little messy. We will provide professional aprons and side towels for you to use during the session.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow" onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-black text-lg text-gray-900 dark:text-white">Can you accommodate dietary restrictions or allergies?</h4>
+                        <i class="fas fa-chevron-down faq-icon text-gray-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700">
+                        <p class="pt-4">Yes, we can accommodate most common allergies (e.g., gluten-free, dairy-free, nut-free) and dietary preferences (vegetarian, vegan). However, you must inform us at least 48 hours prior to your class so our chefs can prepare the appropriate ingredient substitutions.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow" onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-black text-lg text-gray-900 dark:text-white">Do I need to bring my own ingredients or tools?</h4>
+                        <i class="fas fa-chevron-down faq-icon text-gray-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700">
+                        <p class="pt-4">No! We provide everything you need. Your station will be prepped with all the premium ingredients, Japanese steel knives, and professional cookware required to complete the menu. Just bring yourself and an appetite.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item bg-white dark:bg-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer shadow-sm hover:shadow-md transition-shadow" onclick="this.classList.toggle('active')">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-black text-lg text-gray-900 dark:text-white">What is your cancellation policy?</h4>
+                        <i class="fas fa-chevron-down faq-icon text-gray-400 transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-600 dark:text-gray-400 font-medium text-sm leading-relaxed border-t border-gray-100 dark:border-gray-700">
+                        <p class="pt-4">Due to the high cost of premium ingredients prepped specifically for each student, we require a minimum of 72 hours notice for a full refund or to reschedule your class. Cancellations within 72 hours are non-refundable, but you may transfer your ticket to a friend.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: STUDIO POLICIES (GRID) -->
+        <!-- ========================================== -->
+        <section class="w-full py-24 bg-white dark:bg-card/30 border-y border-gray-200 dark:border-gray-800">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+                <span class="text-brand font-bold uppercase tracking-widest text-sm mb-2 block">The Fine Print</span>
+                <h2 class="text-4xl font-black mb-16 text-gray-900 dark:text-white">Studio Policies</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-8 bg-gray-50 dark:bg-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <i class="fas fa-clock text-4xl text-brand mb-6"></i>
+                        <h3 class="text-xl font-black mb-4">Arrival Time</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium leading-relaxed">Please arrive 15 minutes before your scheduled class time to check in, wash your hands, and get fitted for your apron. Classes start promptly to ensure all recipes are completed.</p>
+                    </div>
+                    <div class="p-8 bg-gray-50 dark:bg-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <i class="fas fa-wine-glass text-4xl text-brand mb-6"></i>
+                        <h3 class="text-xl font-black mb-4">Alcohol Policy</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium leading-relaxed">We provide wine and beer pairings during the dining portion of the evening. Outside alcohol is not permitted. You must be 21+ and present a valid ID to consume alcohol.</p>
+                    </div>
+                    <div class="p-8 bg-gray-50 dark:bg-dark rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                        <i class="fas fa-child text-4xl text-brand mb-6"></i>
+                        <h3 class="text-xl font-black mb-4">Age Restrictions</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium leading-relaxed">Standard classes are strictly for adults aged 18 and older due to the use of sharp knives and hot equipment. We do offer specific "Family Baking" classes for children 10+.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: CONTACT SUPPORT CTA -->
+        <!-- ========================================== -->
+        <section class="w-full py-24 bg-dark text-white text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-brand opacity-20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+            <div class="relative z-10 max-w-2xl mx-auto px-6">
+                <i class="fas fa-headset text-6xl text-brand mb-8"></i>
+                <h2 class="text-4xl md:text-5xl font-black mb-6">Still Have Questions?</h2>
+                <p class="text-lg text-gray-300 font-medium mb-10 leading-relaxed">If you couldn't find the answer to your question in our FAQ, our support team is standing by to assist you with your booking, dietary needs, or private event inquiries.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-brand hover:bg-orange-500 text-white font-black py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg">Contact Support</a>
+                    <a href="tel:+15558002433" class="bg-transparent border-2 border-gray-600 hover:bg-gray-800 text-white font-black py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1"><i class="fas fa-phone mr-2"></i> Call Us</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER PART -->
+    <footer class="bg-white dark:bg-card border-t border-gray-200 dark:border-gray-800 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-2 text-2xl font-black mb-6 hover:opacity-80 transition">
+                        <i class="fas fa-fire text-brand"></i>FoodNow
+                    </a>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">Dedicated to providing the ultimate culinary education. Master techniques and elevate your cooking from home or our studio.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-brand hover:border-brand hover:text-white transform hover:-translate-y-1 shadow hover:shadow-md transition-all duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-brand hover:border-brand hover:text-white transform hover:-translate-y-1 shadow hover:shadow-md transition-all duration-300"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-black uppercase tracking-widest mb-6 text-sm text-gray-900 dark:text-white">Student Portal</h4>
+                    <ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                        <li><a href="login.html" class="hover:text-brand transition">Student Login</a></li>
+                        <li><a href="user.html" class="hover:text-brand transition">Dashboard</a></li>
+                        <li><a href="pricing.html" class="hover:text-brand transition">Memberships</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-black uppercase tracking-widest mb-6 text-sm text-gray-900 dark:text-white">Our Courses</h4>
+                    <ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                        <li><a href="services.html" class="hover:text-brand transition">Beginner Basics</a></li>
+                        <li><a href="services.html" class="hover:text-brand transition">Pastry & Baking</a></li>
+                        <li><a href="services.html" class="hover:text-brand transition">World Cuisines</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-black uppercase tracking-widest mb-6 text-sm text-gray-900 dark:text-white">Contact Us</h4>
+                    <ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                        <li class="flex gap-3"><i class="fas fa-map-marker-alt text-brand mt-1"></i> 123 Gourmet Ave, NY</li>
+                        <li class="flex gap-3"><i class="fas fa-phone text-brand mt-1"></i> <a href="tel:+15558002433" class="hover:text-brand transition">+1 (555) 800-CHEF</a></li>
+                        <li class="flex gap-3"><i class="fas fa-envelope text-brand mt-1"></i> <a href="contact.html" class="hover:text-brand transition">hello@foodnow.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold uppercase text-gray-400">
+                <p>&copy; 2026 FoodNow Studio. All rights reserved.</p>
+                <div class="flex gap-6"><a href="#" class="hover:text-brand transition">Terms</a><a href="#" class="hover:text-brand transition">Privacy</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav div');
+            if (window.scrollY > 20) { nav.classList.add('py-2', 'bg-white/95'); nav.classList.remove('py-3', 'bg-white/90'); } 
+            else { nav.classList.add('py-3', 'bg-white/90'); nav.classList.remove('py-2', 'bg-white/95'); }
+        });
+
+        // Mobile Menu Toggle
+        const menu = document.getElementById('mobile-menu');
+        function toggleMenu() { menu.classList.toggle('hidden'); }
+
+        // Dark Mode Toggle
+        const theme = localStorage.getItem('theme') || 'light';
+        function updateThemeUI(isDark) {
+            if (isDark) document.documentElement.classList.add('dark');
+            else document.documentElement.classList.remove('dark');
+        }
+        updateThemeUI(theme === 'dark');
+        function toggleTheme() {
+            const isDark = !document.documentElement.classList.contains('dark');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // LTR / RTL Toggle
+        const dir = localStorage.getItem('dir') || 'ltr';
+        function updateRTLUI(currentDir) {
+            document.documentElement.dir = currentDir;
+            document.getElementById('rtl-btn').innerText = currentDir === 'rtl' ? 'RTL' : 'LTR';
+        }
+        updateRTLUI(dir);
+        function toggleRTL() {
+            const newDir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl';
+            localStorage.setItem('dir', newDir);
+            updateRTLUI(newDir);
+        }
+    </script>
+</body>
+</html>
