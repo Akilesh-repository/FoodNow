@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
     <title>Sign In | FoodNow</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/jpeg" href="images\images (6).png">
-    <link rel="icon" type="image/png" href="images\images (6).png">
+    <script src="tailwind.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -16,7 +16,8 @@
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: { brand: '#F97316', dark: '#0F172A', card: '#1E293B' },
                     fontWeight: {
-                        semibold: '500',
+                        // semibold default 600
+                        semibold: '600',
                         bold: '600',
                         extrabold: '800',
                         black: '900'
@@ -257,6 +258,7 @@
                 opacity: 0;
                 transform: translateY(16px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -264,10 +266,11 @@
         }
 
         /* 100% IDENTICAL LOGO STYLING */
-        .auth-logo a {
+        /* .auth-logo a {
             color: var(--text-main) !important;
             text-decoration: none;
-        }
+        } */
+        .auth-logo a { text-decoration: none; }
 
         /* SEGMENTED PILL SWITCHER */
         .segment-tabs {
@@ -605,7 +608,8 @@
     <div class="auth-card">
         <!-- Logo matching index.html -->
         <div class="auth-logo flex justify-center mb-3">
-            <a href="index.html" class="flex items-center gap-2 text-2xl font-black tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity">
+            <a href="index.html"
+                class="flex items-center gap-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity">
                 <i class="fas fa-fire text-brand"></i>FoodNow
             </a>
         </div>
@@ -618,8 +622,9 @@
 
         <!-- HEADER -->
         <div class="text-center mb-4">
-            <h2 class="text-xl font-black text-[var(--text-main)] tracking-tight">Welcome Back, Chef</h2>
-            <p class="text-xs text-[var(--text-muted)] mt-0.5 font-medium">Access your student recipes and class schedule</p>
+            <h2 class="text-xl font-semibold text-[var(--text-main)] tracking-tight">Welcome Back, Chef</h2>
+            <p class="text-xs text-[var(--text-muted)] mt-0.5 font-medium">Access your student recipes and class
+                schedule</p>
         </div>
 
         <!-- FORM WITH INLINE INPUTS -->
@@ -637,7 +642,8 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-wrapper">
-                        <input type="password" id="password" class="input-field password-field" placeholder="••••••••" required>
+                        <input type="password" id="password" class="input-field password-field" placeholder="••••••••"
+                            required>
                         <i class="fas fa-lock input-icon"></i>
                         <button type="button" class="password-toggle" id="toggle-password" tabindex="-1"
                             aria-label="Toggle password visibility">
@@ -652,9 +658,10 @@
                 <label class="custom-checkbox">
                     <input type="checkbox">
                     <div class="checkmark"></div>
-                    <span class="ml-2 text-[0.73rem] font-semibold" style="color: var(--text-muted);">Remember me</span>
+                    <span class="ml-2 text-[0.73rem] font-medium" style="color: var(--text-muted);">Remember me</span>
                 </label>
-                <a href="#" class="text-[0.73rem] font-bold hover:underline" style="color: var(--accent-color);">Forgot Password?</a>
+                <a href="#" class="text-[0.73rem] font-bold hover:underline" style="color: var(--accent-color);">Forgot
+                    Password?</a>
             </div>
 
             <!-- SUBMIT BUTTON -->
@@ -669,7 +676,8 @@
         <div class="social-login">
             <button class="social-btn" type="button" title="Sign in with Google"><i class="fab fa-google"></i></button>
             <button class="social-btn" type="button" title="Sign in with Apple"><i class="fab fa-apple"></i></button>
-            <button class="social-btn" type="button" title="Sign in with X"><i class="fa-brands fa-x-twitter"></i></button>
+            <button class="social-btn" type="button" title="Sign in with X"><i
+                    class="fa-brands fa-x-twitter"></i></button>
         </div>
 
         <div class="login-link">

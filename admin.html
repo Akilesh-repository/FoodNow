@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
     <title>Admin Dashboard | FoodNow</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/jpeg" href="images\images (6).png">
-    <link rel="icon" type="image/png" href="images\images (6).png">
+    <script src="tailwind.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -15,7 +15,8 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     fontWeight: {
-                        semibold: '500',
+                        // semibold default 600
+                        semibold: '600',
                         bold: '600',
                         extrabold: '800',
                         black: '900'
@@ -410,21 +411,22 @@
         <!-- Logo matching index.html -->
         <div class="mb-10 px-4 bg-transparent py-2">
             <div class="flex items-center flex-shrink-0">
-                <a href="index.html" class="flex items-center gap-2 text-2xl font-black tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity">
+                <a href="index.html"
+                    class="flex items-center gap-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity">
                     <i class="fas fa-fire text-brand"></i>FoodNow
                 </a>
             </div>
         </div>
 
         <nav class="flex-grow">
-            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3 px-4 text-[var(--text-muted)]">Operations
+            <p class="text-[10px] font-medium uppercase tracking-widest mb-3 px-4 text-[var(--text-muted)]">Operations
             </p>
             <a class="nav-item active tab-btn" data-target="a-dash"><i class="fas fa-chart-pie"></i> Dashboard</a>
             <a class="nav-item tab-btn" data-target="a-orders"><i class="fas fa-receipt"></i> Bookings & Orders</a>
             <a class="nav-item tab-btn" data-target="a-inventory"><i class="fas fa-utensils"></i> Class Schedule</a>
             <a class="nav-item tab-btn" data-target="a-members"><i class="fas fa-users"></i> Students</a>
 
-            <p class="text-[10px] font-semibold uppercase tracking-widest mt-8 mb-3 px-4 text-[var(--text-muted)]">
+            <p class="text-[10px] font-medium uppercase tracking-widest mt-8 mb-3 px-4 text-[var(--text-muted)]">
                 System
             </p>
             <a class="nav-item tab-btn" data-target="a-settings"><i class="fas fa-cog"></i> Settings</a>
@@ -445,10 +447,14 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <button class="icon-btn hidden sm:flex" id="rtl-toggle"><i class="fas fa-align-right"></i></button>
-                <button class="icon-btn" id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <button onclick="toggleTheme()"
+                    class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-sm hover:text-brand hover:scale-110 transition-all duration-200">
+                    <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+                <button onclick="toggleRTL()" id="rtl-btn"
+                    class="w-10 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-[10px] font-semibold uppercase hover:text-brand hover:scale-110 transition-all duration-200">LTR</button>
                 <div
-                    class="w-8 h-8 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center font-semibold text-sm ml-2">
+                    class="w-8 h-8 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center font-medium text-sm ml-2">
                     AD</div>
             </div>
         </header>
@@ -461,26 +467,27 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                     <div class="dash-card p-5 border-t-4 border-[var(--accent-color)]">
-                        <p class="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-1">
+                        <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--text-muted)] mb-1">
                             Active
                             Bookings</p>
                         <h3 class="text-2xl font-bold text-[var(--text-main)]">1,452</h3>
                     </div>
                     <div class="dash-card p-5 border-t-4 border-emerald-500">
-                        <p class="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-1">
+                        <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--text-muted)] mb-1">
                             Monthly
                             Revenue</p>
                         <h3 class="text-2xl font-bold text-[var(--text-main)]">$42.8K</h3>
                     </div>
                     <div class="dash-card p-5 border-t-4 border-purple-500">
-                        <p class="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-1">
+                        <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--text-muted)] mb-1">
                             Total
                             Students</p>
                         <h3 class="text-2xl font-bold text-[var(--text-main)]">12,045</h3>
                     </div>
                     <div class="dash-card p-5 border-t-4 border-red-500 bg-red-50 dark:bg-red-900/10 cursor-pointer tab-btn"
                         data-target="a-orders">
-                        <p class="text-[10px] font-semibold uppercase tracking-widest text-red-500 mb-1">Pending Approvals
+                        <p class="text-[10px] font-medium uppercase tracking-widest text-red-500 mb-1">Pending
+                            Approvals
                         </p>
                         <h3 class="text-2xl font-bold text-red-600">18 Pending</h3>
                     </div>
@@ -489,7 +496,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="dash-card p-6 overflow-x-auto lg:col-span-2">
                         <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
-                            <h3 class="font-semibold text-[var(--text-main)]">Recent Transactions</h3>
+                            <h3 class="font-medium text-[var(--text-main)]">Recent Transactions</h3>
                             <button class="btn-outline tab-btn" data-target="a-orders">View All</button>
                         </div>
                         <table class="clean-table">
@@ -503,13 +510,13 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><span class="font-semibold">#TRX-892</span></td>
+                                    <td><span class="font-medium">#TRX-892</span></td>
                                     <td>Sarah Jenkins</td>
                                     <td><span class="status-badge badge-warning">Booked</span></td>
                                     <td><button class="btn-action">Manage</button></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="font-semibold">#TRX-889</span></td>
+                                    <td><span class="font-medium">#TRX-889</span></td>
                                     <td>Marcus Cole</td>
                                     <td><span class="status-badge badge-info">Completed</span></td>
                                     <td><button class="btn-outline text-xs !py-1">Details</button></td>
@@ -519,16 +526,16 @@
                     </div>
                     <div class="dash-card p-6 flex flex-col justify-between">
                         <div>
-                            <h3 class="font-semibold text-[var(--text-main)] mb-4">Quick Actions</h3>
+                            <h3 class="font-medium text-[var(--text-main)] mb-4">Quick Actions</h3>
                             <button
-                                class="w-full text-left p-3 mb-2 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-semibold transition-colors"><i
+                                class="w-full text-left p-3 mb-2 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-medium transition-colors"><i
                                     class="fas fa-plus text-[var(--accent-color)] mr-2"></i> New Booking</button>
                             <button
-                                class="w-full text-left p-3 mb-2 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-semibold transition-colors"><i
+                                class="w-full text-left p-3 mb-2 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-medium transition-colors"><i
                                     class="fas fa-folder-plus text-[var(--accent-color)] mr-2"></i> Add New
                                 Class</button>
                             <button
-                                class="w-full text-left p-3 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-semibold transition-colors"><i
+                                class="w-full text-left p-3 rounded bg-[var(--dash-bg)] border border-[var(--border-color)] hover:border-[var(--accent-color)] text-sm font-medium transition-colors"><i
                                     class="fas fa-envelope text-[var(--accent-color)] mr-2"></i> Send Class
                                 Reminders</button>
                         </div>
@@ -555,29 +562,29 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="font-semibold">#TRX-892</span><br><span
+                                <td><span class="font-medium">#TRX-892</span><br><span
                                         class="text-xs text-[var(--text-muted)]">Today</span></td>
                                 <td>The Italian Pasta Lab</td>
                                 <td>Masterclass</td>
-                                <td><span class="text-sm font-semibold">Sarah Jenkins</span><br><span
+                                <td><span class="text-sm font-medium">Sarah Jenkins</span><br><span
                                         class="text-xs text-[var(--text-muted)]">sarah@email.com</span></td>
                                 <td><span class="status-badge badge-warning">Booked</span></td>
                             </tr>
                             <tr>
-                                <td><span class="font-semibold">#TRX-889</span><br><span
+                                <td><span class="font-medium">#TRX-889</span><br><span
                                         class="text-xs text-[var(--text-muted)]">Oct 14</span></td>
                                 <td>Artisan Sourdough</td>
                                 <td>Workshop</td>
-                                <td><span class="text-sm font-semibold">John Doe</span><br><span
+                                <td><span class="text-sm font-medium">John Doe</span><br><span
                                         class="text-xs text-[var(--text-muted)]">john@email.com</span></td>
                                 <td><span class="status-badge badge-info">Completed</span></td>
                             </tr>
                             <tr>
-                                <td><span class="font-semibold">#TRX-810</span><br><span
+                                <td><span class="font-medium">#TRX-810</span><br><span
                                         class="text-xs text-[var(--text-muted)]">Oct 01</span></td>
                                 <td>Steakhouse Classics</td>
                                 <td>Private Event</td>
-                                <td><span class="text-sm font-semibold">Liam Wilson</span><br><span
+                                <td><span class="text-sm font-medium">Liam Wilson</span><br><span
                                         class="text-xs text-[var(--text-muted)]">liam@email.com</span></td>
                                 <td><span class="status-badge badge-danger">Cancelled</span>
                                 </td>
@@ -605,27 +612,27 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="font-semibold">The Italian Pasta Lab</span></td>
+                                <td><span class="font-medium">The Italian Pasta Lab</span></td>
                                 <td><span class="text-sm text-[var(--text-muted)]">Italian Cuisine</span></td>
-                                <td><span class="font-semibold text-lg text-[var(--text-main)]">$89.99</span></td>
+                                <td><span class="font-medium text-lg text-[var(--text-main)]">$89.99</span></td>
                                 <td><span class="status-badge badge-success">Available (12)</span></td>
                             </tr>
                             <tr>
-                                <td><span class="font-semibold">Artisan Sourdough</span></td>
+                                <td><span class="font-medium">Artisan Sourdough</span></td>
                                 <td><span class="text-sm text-[var(--text-muted)]">Baking & Pastry</span></td>
-                                <td><span class="font-semibold text-lg text-[var(--text-main)]">$65.00</span></td>
+                                <td><span class="font-medium text-lg text-[var(--text-main)]">$65.00</span></td>
                                 <td><span class="status-badge badge-warning">Filling Fast (2)</span></td>
                             </tr>
                             <tr>
-                                <td><span class="font-semibold">Mastering Wagyu</span></td>
+                                <td><span class="font-medium">Mastering Wagyu</span></td>
                                 <td><span class="text-sm text-[var(--text-muted)]">Meat & Fire</span></td>
-                                <td><span class="font-semibold text-lg text-[var(--text-main)]">$250.00</span></td>
+                                <td><span class="font-medium text-lg text-[var(--text-main)]">$250.00</span></td>
                                 <td><span class="status-badge badge-danger">Sold Out</span></td>
                             </tr>
                             <tr>
-                                <td><span class="font-semibold">Corporate Team Building</span></td>
+                                <td><span class="font-medium">Corporate Team Building</span></td>
                                 <td><span class="text-sm text-[var(--text-muted)]">Private Event</span></td>
-                                <td><span class="font-semibold text-lg text-[var(--text-main)]">Custom</span></td>
+                                <td><span class="font-medium text-lg text-[var(--text-main)]">Custom</span></td>
                                 <td><span class="status-badge badge-info">Upon Request</span></td>
                             </tr>
                         </tbody>
@@ -641,64 +648,64 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="dash-card p-6 text-center flex flex-col items-center">
                         <div
-                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-semibold mb-4">
+                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-medium mb-4">
                             AT</div>
-                        <h3 class="font-semibold text-[var(--text-main)]">Akira Takahashi</h3>
+                        <h3 class="font-medium text-[var(--text-main)]">Akira Takahashi</h3>
                         <p class="text-xs text-[var(--text-muted)] mb-4">New York, NY</p>
                         <div class="w-full flex justify-between border-t border-[var(--border-color)] pt-4 mt-auto">
                             <div class="text-left">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     Classes
                                     Attended</p>
-                                <p class="font-semibold">42</p>
+                                <p class="font-medium">42</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     LTV
                                 </p>
-                                <p class="font-semibold text-[var(--accent-color)]">$650</p>
+                                <p class="font-medium text-[var(--accent-color)]">$650</p>
                             </div>
                         </div>
                     </div>
                     <div class="dash-card p-6 text-center flex flex-col items-center">
                         <div
-                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-semibold mb-4">
+                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-medium mb-4">
                             MD</div>
-                        <h3 class="font-semibold text-[var(--text-main)]">Marcus D.</h3>
+                        <h3 class="font-medium text-[var(--text-main)]">Marcus D.</h3>
                         <p class="text-xs text-[var(--text-muted)] mb-4">Brooklyn, NY</p>
                         <div class="w-full flex justify-between border-t border-[var(--border-color)] pt-4 mt-auto">
                             <div class="text-left">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     Classes
                                     Attended</p>
-                                <p class="font-semibold">12</p>
+                                <p class="font-medium">12</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     LTV
                                 </p>
-                                <p class="font-semibold text-[var(--accent-color)]">$240</p>
+                                <p class="font-medium text-[var(--accent-color)]">$240</p>
                             </div>
                         </div>
                     </div>
                     <div class="dash-card p-6 text-center flex flex-col items-center">
                         <div
-                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-semibold mb-4">
+                            class="w-16 h-16 rounded-full bg-[var(--accent-color)] text-white flex items-center justify-center text-xl font-medium mb-4">
                             LW</div>
-                        <h3 class="font-semibold text-[var(--text-main)]">Liam Wilson</h3>
+                        <h3 class="font-medium text-[var(--text-main)]">Liam Wilson</h3>
                         <p class="text-xs text-[var(--text-muted)] mb-4">Queens, NY</p>
                         <div class="w-full flex justify-between border-t border-[var(--border-color)] pt-4 mt-auto">
                             <div class="text-left">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     Classes
                                     Attended</p>
-                                <p class="font-semibold">118</p>
+                                <p class="font-medium">118</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+                                <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-medium">
                                     LTV
                                 </p>
-                                <p class="font-semibold text-[var(--accent-color)]">$1,250</p>
+                                <p class="font-medium text-[var(--accent-color)]">$1,250</p>
                             </div>
                         </div>
                     </div>
@@ -714,19 +721,19 @@
                 <div class="dash-card p-6 max-w-2xl">
                     <div class="grid grid-cols-1 gap-6">
                         <div>
-                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">Portal
+                            <label class="block text-xs font-medium text-[var(--text-muted)] uppercase mb-2">Portal
                                 Name</label>
                             <input type="text" value="FoodNow Admin"
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-2 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)]">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">Support
+                            <label class="block text-xs font-medium text-[var(--text-muted)] uppercase mb-2">Support
                                 Email</label>
                             <input type="email" value="support@foodnow.com"
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-2 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)]">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">Studio
+                            <label class="block text-xs font-medium text-[var(--text-muted)] uppercase mb-2">Studio
                                 Address</label>
                             <textarea rows="3"
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-2 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)] resize-none">123 Gourmet Avenue, Culinary District, NY</textarea>
@@ -764,25 +771,31 @@
         document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
 
-        // Theme & RTL Logic
-        function applyTheme(isDark) {
-            document.body.classList.toggle('dark-mode', isDark);
+        // Theme & RTL Logic (matching index.html)
+        const theme = localStorage.getItem('theme') || 'light';
+        function updateThemeUI(isDark) {
             document.documentElement.classList.toggle('dark', isDark);
-            document.getElementById('theme-toggle').querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            document.body.classList.toggle('dark-mode', isDark);
         }
-        applyTheme((localStorage.getItem('theme') || 'light') === 'dark');
-        document.getElementById('theme-toggle').addEventListener('click', () => {
+        updateThemeUI(theme === 'dark');
+        function toggleTheme() {
             const isDark = !document.body.classList.contains('dark-mode');
-            applyTheme(isDark);
+            updateThemeUI(isDark);
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
+        }
 
-        if (localStorage.getItem('dir') === 'rtl') document.documentElement.dir = 'rtl';
-        document.getElementById('rtl-toggle').addEventListener('click', () => {
-            const isRTL = document.documentElement.dir === 'rtl';
-            document.documentElement.dir = isRTL ? 'ltr' : 'rtl';
-            localStorage.setItem('dir', isRTL ? 'ltr' : 'rtl');
-        });
+        const dir = localStorage.getItem('dir') || 'ltr';
+        function updateRTLUI(currentDir) {
+            document.documentElement.dir = currentDir;
+            const btn = document.getElementById('rtl-btn');
+            if (btn) btn.innerText = currentDir === 'rtl' ? 'RTL' : 'LTR';
+        }
+        updateRTLUI(dir);
+        function toggleRTL() {
+            const newDir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl';
+            localStorage.setItem('dir', newDir);
+            updateRTLUI(newDir);
+        }
     </script>
 </body>
 
